@@ -1,0 +1,28 @@
+@layout()
+  <div class="form-container">
+    <div>
+      <h1>Vérifier votre e-mail</h1>
+      <p>Entrez le code à 6 chiffres envoyé à votre adresse e-mail.</p>
+    </div>
+
+    <div>
+      @form({ route: 'confirmOtp', method: 'POST' })
+        <div>
+          @field.root({ name: 'otp' })
+            @!field.label({ text: 'Code de vérification' })
+            @!input.control({
+              inputmode: 'numeric',
+              maxlength: 6,
+              autocomplete: 'one-time-code',
+            })
+            @!field.error()
+          @end
+        </div>
+
+        <div>
+          @!button({ text: 'Vérifier mon e-mail', type: 'submit' })
+        </div>
+      @end
+    </div>
+  </div>
+@end
