@@ -104,7 +104,7 @@ export default class ReportsController {
 
     // 6. Réponse avec relations chargées
     await report.load('photos')
-    await report.load('statusHistories')
+    await report.load('statusHistory')
 
     return response.created(report)
   }
@@ -119,7 +119,7 @@ export default class ReportsController {
       .where('id', params.id)
       .preload('photos')
       .preload('user')
-      .preload('statusHistories')
+      .preload('statusHistory')
       .firstOrFail() // lève une 404 automatique si l'id n'existe pas
 
     return response.ok(report)
@@ -267,8 +267,8 @@ export default class ReportsController {
    */
   async history({ params, response }: HttpContext) {
     const report = await Report.findOrFail(params.id)
-    await report.load('statusHistories', (query) => query.orderBy('created_at', 'asc'))
+    await report.load('statusHistory', (query) => query.orderBy('created_at', 'asc'))
 
-    return response.ok(report.statusHistories)
+    return response.ok(report.statusHistory)
   }
 }
