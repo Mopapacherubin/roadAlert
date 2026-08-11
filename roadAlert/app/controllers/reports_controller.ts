@@ -1,6 +1,6 @@
 // app/controllers/reports_controller.ts
 import type { HttpContext } from '@adonisjs/core/http'
-import { cuid } from '@adonisjs/core/helpers'
+import { randomUUID } from 'crypto'
 import app from '@adonisjs/core/services/app'
 import db from '@adonisjs/lucid/services/db'
 import Report from '#models/report'
@@ -83,7 +83,7 @@ export default class ReportsController {
     if (photos && photos.length > 0) {
       for (const photo of photos) {
         // Nom de fichier unique pour éviter toute collision
-        const fileName = `${cuid()}.${photo.extname}`
+        const fileName = `${randomUUID()}.${photo.extname}`
         await photo.move(app.makePath('storage/uploads/reports'), { name: fileName })
 
         await ReportPhoto.create({
@@ -104,7 +104,7 @@ export default class ReportsController {
 
     // 6. Réponse avec relations chargées
     await report.load('photos')
-    await report.load('statusHistory')
+    await report.load('statusHistories')
 
     return response.created(report)
   }
@@ -119,7 +119,7 @@ export default class ReportsController {
       .where('id', params.id)
       .preload('photos')
       .preload('user')
-      .preload('statusHistory')
+      .preload('statusHistories')
       .firstOrFail() // lève une 404 automatique si l'id n'existe pas
 
     return response.ok(report)
@@ -225,7 +225,7 @@ export default class ReportsController {
     const createdPhotos: ReportPhoto[] = []
 
     for (const photo of photos) {
-      const fileName = `${cuid()}.${photo.extname}`
+      const fileName = `${randomUUID()}.${photo.extname}`
       await photo.move(app.makePath('storage/uploads/reports'), { name: fileName })
 
       const reportPhoto = await ReportPhoto.create({
@@ -267,8 +267,8 @@ export default class ReportsController {
    */
   async history({ params, response }: HttpContext) {
     const report = await Report.findOrFail(params.id)
-    await report.load('statusHistory', (query) => query.orderBy('created_at', 'asc'))
+    await report.load('statusHistories', (query) => query.orderBy('created_at', 'asc'))
 
-    return response.ok(report.statusHistory)
+    return response.ok(report.statusHistories)
   }
 }
