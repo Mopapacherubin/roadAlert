@@ -104,7 +104,7 @@ export default class ReportsController {
 
     // 6. Réponse avec relations chargées
     await report.load('photos')
-    await report.load('statusHistory')
+    await report.load('statusHistories')
 
     return response.created(report)
   }
@@ -119,7 +119,7 @@ export default class ReportsController {
       .where('id', params.id)
       .preload('photos')
       .preload('user')
-      .preload('statusHistory')
+      .preload('statusHistories')
       .firstOrFail() // lève une 404 automatique si l'id n'existe pas
 
     return response.ok(report)
@@ -177,13 +177,16 @@ export default class ReportsController {
     const user = auth.user!
     const report = await Report.findOrFail(params.id)
 
-    if (report.userId !== user.id) {
-      return response.forbidden({ message: "Vous n'êtes pas l'auteur de ce signalement" })
+    const isOwner = report.userId === user.id
+    const isAdmin = user.role === 'admin'
+
+    if (!isOwner && !isAdmin) {
+      return response.forbidden({ message: "Vous n'êtes pas autorisé à supprimer ce signalement" })
     }
 
-    if (report.status !== 'nouveau') {
+    if (!isAdmin && report.status !== 'nouveau') {
       return response.badRequest({
-        message: 'Impossible de supprimer un signalement déjà en cours de traitement',
+        message: 'Impossible de supprimer un signalement déjà traité (statut différent de "nouveau")',
       })
     }
 
@@ -200,15 +203,16 @@ export default class ReportsController {
     const user = auth.user!
     const report = await Report.findOrFail(params.id)
 
-    // Seul le propriétaire peut compléter son signalement
-    if (report.userId !== user.id) {
-      return response.forbidden({ message: "Vous n'êtes pas l'auteur de ce signalement" })
+    const isOwner = report.userId === user.id
+    const isAdmin = user.role === 'admin'
+
+    if (!isOwner && !isAdmin) {
+      return response.forbidden({ message: "Vous n'êtes pas autorisé à ajouter des photos à ce signalement" })
     }
 
-    // On bloque l'ajout de photo si le signalement est déjà clos
-    if (report.status === 'resolu' || report.status === 'rejete') {
+    if (!isAdmin && (report.status === 'resolu' || report.status === 'rejete')) {
       return response.badRequest({
-        message: 'Impossible d\'ajouter une photo à un signalement déjà clos',
+        message: 'Impossible d\'ajouter des photos à un signalement déjà résolu ou rejeté',
       })
     }
 
@@ -247,10 +251,13 @@ export default class ReportsController {
     const user = auth.user!
     const report = await Report.findOrFail(params.id)
 
-    if (report.userId !== user.id) {
-      return response.forbidden({ message: "Vous n'êtes pas l'auteur de ce signalement" })
-    }
+    const isOwner = report.userId === user.id
+    const isAdmin = user.role === 'admin' 
 
+    if (!isOwner && !isAdmin) {
+      return response.forbidden({ message: "Vous n'êtes pas autorisé à supprimer cette photo" })
+    }
+    
     const photo = await ReportPhoto.query()
       .where('id', params.photoId)
       .where('report_id', report.id) // s'assure que la photo appartient bien à ce signalement
@@ -267,8 +274,8 @@ export default class ReportsController {
    */
   async history({ params, response }: HttpContext) {
     const report = await Report.findOrFail(params.id)
-    await report.load('statusHistory', (query) => query.orderBy('created_at', 'asc'))
+    await report.load('statusHistories', (query) => query.orderBy('created_at', 'asc'))
 
-    return response.ok(report.statusHistory)
+    return response.ok(report.statusHistories)
   }
 }

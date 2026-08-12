@@ -13,6 +13,8 @@ import ReportStatusHistory from '#models/report_status_history'
  * through the withAuthFinder mixin.
  */
 export default class User extends compose(UserSchema, withAuthFinder(hash)) {
+  declare isActive: boolean
+
   @hasMany(() => Report)
   declare reports: HasMany<typeof Report>
 

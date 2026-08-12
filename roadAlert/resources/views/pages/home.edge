@@ -1,23 +1,79 @@
 @layout()
-  <div class="hero">
-    <h1>It works — welcome to the simplicity of a Hypermedia app</h1>
-    <p>
-      A lightweight foundation for building modern web interfaces — straightforward, flexible, and true to the web's core simplicity.
-    </p>
-  </div>
+@push('mainClass')
+  home-main
+@end
 
-  <div class="cards">
-    <a href="https://insiders.adonisjs.com/docs/v7-alpha/introduction" target="_blank">
-      <h3>Official Docs &nbsp;›</h3>
-      <p>Comprehensive reference for building with AdonisJS</p>
-    </a>
-    <a href="https://adocasts.com/" target="_blank">
-      <h3>Adocasts &nbsp;›</h3>
-      <p>Guided video tutorials for everyday development</p>
-    </a>
-    <a href="https://discord.gg/vDcEjq6" target="_blank">
-      <h3>Discord &nbsp;›</h3>
-      <p>Connect with developers building with AdonisJS every day</p>
-    </a>
+  <div class="home-page">
+    <section class="home-hero" id="accueil">
+      <div class="home-hero__image"></div>
+      <div class="home-hero__overlay"></div>
+
+      <div class="home-hero__content">
+        <span class="eyebrow">RoadAlert</span>
+        <h1>Ensemble, rendons nos routes plus sûres.</h1>
+        <p>RoadAlert permet à chacun de signaler les problèmes routiers et de suivre leur résolution en temps réel.</p>
+
+        <div class="hero-actions">
+          <a href="/login" class="button button-primary">Signaler un problème</a>
+          <a href="#features" class="button button-secondary">Voir comment ça marche</a>
+        </div>
+
+        <div class="home-highlights">
+          <div class="highlight-card">
+            <strong>Signalez</strong>
+            <p>Prenez une photo et décrivez le problème en quelques clics.</p>
+          </div>
+          <div class="highlight-card">
+            <strong>Localisez</strong>
+            <p>Indiquez l'emplacement précis du problème.</p>
+          </div>
+          <div class="highlight-card">
+            <strong>Suivez</strong>
+            <p>Suivez l'évolution et la résolution de votre signalement.</p>
+          </div>
+        </div>
+
+        <div class="discover-more">
+          <a href="#features">Découvrir plus</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-features" id="features">
+      <div class="section-head">
+        <span>Comment ça marche</span>
+        <h2>Un parcours simple pour signaler, localiser et suivre chaque alerte.</h2>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Capturez le problème</h3>
+          <p>Prenez une photo du défaut de la route pour le documenter immédiatement.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Choisissez l'emplacement</h3>
+          <p>Localisez précisément l'incident pour que les équipes sachent où intervenir.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Suivez la résolution</h3>
+          <p>Consultez le statut de votre signalement et l’avancement des réparations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-about" id="a-propos">
+      <div class="section-inner">
+        <h3>RoadAlert met la sécurité routière à portée de main</h3>
+        <p>Notre application permet aux usagers de signaler facilement les nids-de-poule, obstacles et autres dangers. Les signalements sont transmis aux équipes responsables et suivis jusqu'à leur résolution.</p>
+      </div>
+    </section>
+
+    <section class="home-contact" id="contact">
+      <div class="section-inner">
+        <h3>Prêt à agir ?</h3>
+        <p>Connectez-vous ou créez un compte pour commencer à signaler les problèmes sur votre parcours.</p>
+        <a href="/signup" class="button button-primary">S'inscrire</a>
+      </div>
+    </section>
   </div>
 @end

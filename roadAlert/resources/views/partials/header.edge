@@ -17,7 +17,12 @@
       @end
     </div>
     <div>
-      <nav>
+      <nav class="main-nav">
+        <a href="#accueil" class="current">Accueil</a>
+        <a href="#a-propos">À propos</a>
+        <a href="#features">Fonctionnalités</a>
+        <a href="#contact">Contact</a>
+
         @if(auth.user)
           @!avatar({ initials: auth.user.initials })
           @form({ route: 'session.destroy', method: 'POST' })

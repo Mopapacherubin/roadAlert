@@ -9,7 +9,7 @@
   </head>
   <body>
     @include('partials/header')
-    <main>
+    <main class="@stack('mainClass')">
       @include('partials/flash_alerts')
       {{{ await $slots.main() }}}
     </main>

@@ -29,3 +29,22 @@ export const confirmOtpValidator = vine.create({
     .trim()
     .regex(/^\d{6}$/),
 })
+
+export const listUsersValidator = vine.create(
+  vine.object({
+    active: vine.boolean().optional(),
+    page: vine.number().optional(),
+    perPage: vine.number().positive().max(100).optional(),
+    role: vine.enum(['agent', 'citoyen', 'admin']).optional(),
+    search: vine.string().optional(),
+})
+)
+
+export const updateUserValidator = vine.create(
+  vine.object({
+    role: vine.enum(['agent', 'citoyen', 'admin']),
+  })
+)
+
+
+

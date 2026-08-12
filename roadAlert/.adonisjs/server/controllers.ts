@@ -5,6 +5,9 @@
 
 export const controllers = {
   ConfirmOtps: () => import('#controllers/confirm_otps_controller'),
+  Dashboard: () => import('#controllers/dashboard_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
+  Reports: () => import('#controllers/reports_controller'),
   Session: () => import('#controllers/session_controller'),
+  Users: () => import('#controllers/users_controller'),
 }
