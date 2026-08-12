@@ -1,34 +1,39 @@
 @layout()
-@push('mainClass')
-  home-main
-@end
 
   <div class="home-page">
     <section class="home-hero" id="accueil">
-      <div class="home-hero__image"></div>
-      <div class="home-hero__overlay"></div>
 
       <div class="home-hero__content">
-        <span class="eyebrow">RoadAlert</span>
-        <h1>Ensemble, rendons nos routes plus sûres.</h1>
+        <h1>Ensemble, rendons nos routes <span class="logo"> plus sûres.</span></h1>
         <p>RoadAlert permet à chacun de signaler les problèmes routiers et de suivre leur résolution en temps réel.</p>
 
         <div class="hero-actions">
-          <a href="/login" class="button button-primary">Signaler un problème</a>
-          <a href="#features" class="button button-secondary">Voir comment ça marche</a>
+          <a href="/login" class="button button-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera-icon lucide-camera"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>
+          Signaler un problème</a>
+          <a href="#features" class="button button-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-play-icon lucide-circle-play"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"/><circle cx="12" cy="12" r="10"/></svg>
+            Voir comment ça marche</a>
         </div>
 
         <div class="home-highlights">
           <div class="highlight-card">
-            <strong>Signalez</strong>
+            <h5 class="report">
+              <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera-icon lucide-camera"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>
+                Signalez
+              </h5>
             <p>Prenez une photo et décrivez le problème en quelques clics.</p>
           </div>
           <div class="highlight-card">
-            <strong>Localisez</strong>
+            <h5 class="report">
+              <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-icon lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+              Localisez</h5>
             <p>Indiquez l'emplacement précis du problème.</p>
           </div>
           <div class="highlight-card">
-            <strong>Suivez</strong>
+            <h5 class="report">
+              <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column-big-icon lucide-chart-column-big"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><rect x="15" y="5" width="4" height="12" rx="1"/><rect x="7" y="8" width="4" height="9" rx="1"/></svg>
+              Suivez</h5>
             <p>Suivez l'évolution et la résolution de votre signalement.</p>
           </div>
         </div>
