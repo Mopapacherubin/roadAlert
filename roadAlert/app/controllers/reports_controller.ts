@@ -14,26 +14,16 @@ import {
 } from '#validators/report'
 
 export default class ReportsController {
-  /**
-   * GET /reports
-   * Liste les signalements avec filtres optionnels (statut, zone GPS)
-   * et restriction automatique par rôle.
-   */
   async index({ request, auth, response }: HttpContext) {
-    // 1. Valider les paramètres de requête (query string)
     const { status, page = 1, perPage = 20, lat, lng, radius } = await request.validateUsing(
       listReportValidator
     )
 
-    // 2. Requête de base avec préchargement des relations
     const query = Report.query().preload('photos').preload('user')
-
-    // 3. Filtre par statut, seulement si fourni
     if (status) {
       query.where('status', status)
     }
-
-    // 4. Filtre géographique par boîte englobante (approximation du rayon)
+  
     if (lat !== undefined && lng !== undefined && radius !== undefined) {
       const latDelta = radius / 111
       const lngDelta = radius / (111 * Math.cos((lat * Math.PI) / 180))
@@ -43,14 +33,11 @@ export default class ReportsController {
         .whereBetween('longitude', [lng - lngDelta, lng + lngDelta])
     }
 
-    // 5. Un citoyen ne voit que ses propres signalements
-    //    (sécurité appliquée côté serveur, jamais confiée au client)
     const user = auth.user!
     if (user.role === 'citoyen') {
       query.where('user_id', user.id)
     }
 
-    // 6. Tri du plus récent au plus ancien + pagination
     const reports = await query.orderBy('created_at', 'desc').paginate(page, perPage)
 
     return response.ok(reports)

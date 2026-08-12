@@ -1,0 +1,110 @@
+@layout()
+
+  <div class="dashboard-page">
+    <div class="dashboard-header">
+      <h1>Tableau de bord</h1>
+      <p>Vue d'ensemble des signalements et actions rapides.</p>
+    </div>
+
+    <div class="dashboard-cards">
+      <div class="card">
+        <h4>Nouveaux</h4>
+        <strong>{{ reportsByStatus.nouveau }}</strong>
+      </div>
+      <div class="card">
+        <h4>En cours</h4>
+        <strong>{{ reportsByStatus.en_cours }}</strong>
+      </div>
+      <div class="card">
+        <h4>Résolus</h4>
+        <strong>{{ reportsByStatus.resolu }}</strong>
+      </div>
+      <div class="card">
+        <h4>Rejetés</h4>
+        <strong>{{ reportsByStatus.rejete }}</strong>
+      </div>
+    </div>
+
+    <div class="dashboard-stats">
+      <div class="stat">
+        <span>Signalements (7j)</span>
+        <strong>{{ recentReports }}</strong>
+      </div>
+      <div class="stat">
+        <span>Temps de résolution moyen (h)</span>
+        <strong>{{ avgResolutionTime ?? '—' }}</strong>
+      </div>
+    </div>
+
+    <section class="reports-table">
+      <h2>Derniers signalements</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Titre</th>
+              <th>Statut</th>
+              <th>Créé</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(report in reports)
+              <tr data-id="{{ report.id }}">
+                <td>{{ report.id }}</td>
+                <td>{{ report.title }}</td>
+                <td class="status">{{ report.status }}</td>
+                <td>{{ report.createdAt }}</td>
+                <td>
+                  <a class="btn" href="/reports/{{ report.id }}">Voir</a>
+                  <select class="status-select">
+                    <option value="nouveau" {{ report.status === 'nouveau' ? 'selected' : '' }}>Nouveau</option>
+                    <option value="en_cours" {{ report.status === 'en_cours' ? 'selected' : '' }}>En cours</option>
+                    <option value="resolu" {{ report.status === 'resolu' ? 'selected' : '' }}>Résolu</option>
+                    <option value="rejete" {{ report.status === 'rejete' ? 'selected' : '' }}>Rejeté</option>
+                  </select>
+                  <button class="btn update-status">Mettre à jour</button>
+                </td>
+              </tr>
+            @end
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener('click', async (ev) => {
+        const btn = ev.target.closest('.update-status')
+        if (!btn) return
+
+        const row = btn.closest('tr')
+        const id = row.dataset.id
+        const select = row.querySelector('.status-select')
+        const status = select.value
+
+        try {
+          const res = await fetch(`/reports/${id}/status`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status }) ,
+            credentials: 'same-origin'
+          })
+
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}))
+            alert(data.message || 'Erreur lors de la mise à jour du statut')
+            return
+          }
+
+          const json = await res.json()
+          row.querySelector('.status').textContent = json.status
+        } catch (err) {
+          console.error(err)
+          alert('Erreur réseau')
+        }
+      })
+    </script>
+  </div>
+
+@end

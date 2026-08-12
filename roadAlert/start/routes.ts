@@ -13,6 +13,7 @@ import router from '@adonisjs/core/services/router'
 
 const UserController = () => import('#controllers/users_controller')
 const DashboardController = () => import('#controllers/dashboard_controller')
+const AgentDashboardController = () => import('#controllers/agent_dashboard_controller')
 const ReportsController = () => import('#controllers/reports_controller')
 
 router.on('/').render('pages/home').as('home')
@@ -36,6 +37,7 @@ router
 
     // Signalements routes
     router.get('reports', [ReportsController, 'index'])
+    router.get('dashboard', [AgentDashboardController, 'index'])
     router.post('reports', [ReportsController, 'store'])
     router.get('reports/:id', [ReportsController, 'show'])
     router.delete('reports/:id', [ReportsController, 'destroy'])

@@ -27,6 +27,10 @@ export default class SessionController {
     }
 
     await auth.use('web').login(user)
+    if (user.role === 'agent' || user.role === 'admin') {
+      return response.redirect().toPath('/dashboard')
+    }
+
     response.redirect().toRoute('home')
   }
 

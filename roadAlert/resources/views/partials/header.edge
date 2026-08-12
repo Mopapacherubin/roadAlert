@@ -25,6 +25,9 @@
 
         @if(auth.user)
           @!avatar({ initials: auth.user.initials })
+          @if(auth.user.role === 'agent' || auth.user.role === 'admin')
+            <a href="/dashboard">Dashboard</a>
+          @end
           @form({ route: 'session.destroy', method: 'POST' })
             @!button({ text: 'Logout' })
           @end
