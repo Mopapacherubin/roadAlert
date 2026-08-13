@@ -9,7 +9,9 @@ export default class ConfirmOtpsController {
       return response.redirect().toRoute('new_account.create')
     }
 
-    return view.render('pages/auth/confirm_otp')
+    return view.render('pages/auth/confirm_otp', {
+      email: session.get('pendingVerificationEmail'),
+    })
   }
 
   async store({ request, response, auth, session }: HttpContext) {

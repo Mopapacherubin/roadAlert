@@ -12,7 +12,9 @@ export default defineConfig({
         'resources/css/app.css',
         'resources/css/pages/signup.css',
         'resources/css/pages/login.css',
+        'resources/css/pages/confirm_otp.css',
         'resources/js/app.js',
+        'resources/js/confirm_otp.js',
       ],
 
       /**

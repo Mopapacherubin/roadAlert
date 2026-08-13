@@ -1,28 +1,51 @@
 @layout()
-  <div class="form-container">
-    <div>
-      <h1>Vérifier votre e-mail</h1>
-      <p>Entrez le code à 6 chiffres envoyé à votre adresse e-mail.</p>
-    </div>
+  @vite(['resources/css/pages/confirm_otp.css', 'resources/js/confirm_otp.js'])
 
-    <div>
-      @form({ route: 'confirmOtp', method: 'POST' })
-        <div>
+  <section class="otp-page">
+    <aside class="otp-showcase" aria-label="RoadAlert">
+      <div class="otp-showcase__content">
+        <a href="{{ route('home') }}" class="otp-brand" aria-label="RoadAlert, accueil">
+          <span class="otp-brand__icon">&#9888;</span><strong>Road<span>Alert</span></strong>
+        </a>
+        <div class="otp-showcase__intro">
+          <h1>Un code vous a<br />&#233;t&#233; envoy&#233; !</h1>
+          <p>Nous avons envoy&#233; un code OTP &#224; votre adresse email pour v&#233;rifier votre identit&#233;.</p>
+        </div>
+        <div class="otp-benefits">
+          <div class="otp-benefit"><i>&#9993;</i><p><strong>V&#233;rification s&#233;curis&#233;e</strong><span>Votre s&#233;curit&#233; est notre priorit&#233;.</span></p></div>
+          <div class="otp-benefit"><i>&#9830;</i><p><strong>Code &#224; usage unique</strong><span>Ce code expirera dans quelques minutes.</span></p></div>
+          <div class="otp-benefit"><i>&#128274;</i><p><strong>Confidentialit&#233; garantie</strong><span>Nous ne partageons jamais vos informations.</span></p></div>
+        </div>
+        <small class="otp-copyright">&copy; 2025 Road<span>Alert</span>. Tous droits r&#233;serv&#233;s.</small>
+      </div>
+    </aside>
+
+    <div class="otp-panel">
+      <div class="otp-language">&#9673; <strong>FR</strong> &#8964;</div>
+      <div class="otp-card">
+        <div class="otp-card__heading"><div class="otp-mail-icon">&#9993;</div><h1>V&#233;rification du code</h1><p>Entrez le code &#224; 6 chiffres que nous avons envoy&#233; &#224;</p><strong>{{ email }}</strong> <a href="{{ route('new_account.create') }}">Modifier</a></div>
+        @form({ route: 'confirmOtp', method: 'POST', class: 'otp-form' })
+          <div data-otp-form>
           @field.root({ name: 'otp' })
-            @!field.label({ text: 'Code de vérification' })
-            @!input.control({
-              inputmode: 'numeric',
-              maxlength: 6,
-              autocomplete: 'one-time-code',
-            })
+            <input type="hidden" name="otp" data-otp-value />
+            <div class="otp-digits" aria-label="Code de v&#233;rification &#224; six chiffres">
+              <input data-otp-digit inputmode="numeric" autocomplete="one-time-code" maxlength="1" aria-label="Premier chiffre" autofocus />
+              <input data-otp-digit inputmode="numeric" maxlength="1" aria-label="Deuxi&#232;me chiffre" />
+              <input data-otp-digit inputmode="numeric" maxlength="1" aria-label="Troisi&#232;me chiffre" />
+              <input data-otp-digit inputmode="numeric" maxlength="1" aria-label="Quatri&#232;me chiffre" />
+              <input data-otp-digit inputmode="numeric" maxlength="1" aria-label="Cinqui&#232;me chiffre" />
+              <input data-otp-digit inputmode="numeric" maxlength="1" aria-label="Sixi&#232;me chiffre" />
+            </div>
             @!field.error()
           @end
-        </div>
-
-        <div>
-          @!button({ text: 'Vérifier mon e-mail', type: 'submit' })
-        </div>
-      @end
+          <p class="otp-expiry">&#9716; Le code expirera dans <strong>10:00</strong></p>
+          <button class="otp-submit" type="submit">V&#233;rifier le code <span>&rarr;</span></button>
+          </div>
+        @end
+        <div class="otp-divider"><span>Vous n'avez pas re&#231;u le code ?</span></div>
+        <button type="button" class="otp-resend">&#10227; Renvoyer le code <small>(28s)</small></button>
+        <p class="otp-help">&#9432; <span>Vous avez un probl&#232;me ? <a href="#">Contactez notre support</a></span></p>
+      </div>
     </div>
-  </div>
+  </section>
 @end
