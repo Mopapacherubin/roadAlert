@@ -4,6 +4,7 @@
  */
 
 export const controllers = {
+  AgentDashboard: () => import('#controllers/agent_dashboard_controller'),
   ConfirmOtps: () => import('#controllers/confirm_otps_controller'),
   Dashboard: () => import('#controllers/dashboard_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),

@@ -1,49 +1,75 @@
 @layout()
-  <div class="form-container">
-    <div>
-      <h1>Signup</h1>
-      <p>Enter your details below to create your account</p>
-    </div>
+  @push('mainClass') signup-main @end
 
-    <div>
-      @form({ route: 'new_account.store', method: 'POST' })
-        <div>
+  <section class="signup-page">
+    <aside class="signup-showcase" aria-label="RoadAlert">
+      <div class="signup-showcase__content">
+        <a href="{{ route('home') }}" class="signup-brand" aria-label="RoadAlert, accueil">
+          <span class="signup-brand__icon">⚠</span><strong>Road<span>Alert</span></strong>
+        </a>
+
+        <div class="signup-showcase__intro">
+          <h1>Ensemble, rendons<br />nos routes plus sûres.</h1>
+          <p>Signalez les problèmes routiers autour de vous et contribuez à l'amélioration de nos infrastructures.</p>
+        </div>
+
+        <div class="signup-benefits">
+          <div class="signup-benefit"><i>⌖</i><p><strong>Signalez facilement</strong><span>Indiquez un problème routier en quelques clics avec photos et localisation.</span></p></div>
+          <div class="signup-benefit"><i>▥</i><p><strong>Suivez en temps réel</strong><span>Suivez l'état de vos signalements et restez informé des actions menées.</span></p></div>
+          <div class="signup-benefit"><i>♧</i><p><strong>Agissons ensemble</strong><span>Votre signalement peut faire la différence pour toute la communauté.</span></p></div>
+        </div>
+
+        <div class="signup-security"><i>♢</i><p><strong>Votre sécurité, notre priorité</strong><span>RoadAlert garantit la confidentialité de vos données et signalements.</span></p></div>
+        <small class="signup-copyright">© 2025 Road<span>Alert</span>. Tous droits réservés.</small>
+      </div>
+    </aside>
+
+    <div class="signup-panel">
+      <div class="signup-panel__top">
+        <a href="{{ route('home') }}" class="signup-back">← <span>Retour à l'accueil</span></a>
+        <button class="signup-theme" type="button" aria-label="Changer le thème">☼ <span>◐</span></button>
+      </div>
+
+      <div class="signup-card">
+        <div class="signup-card__heading">
+          <div class="signup-lock">♙</div>
+          <h2>Créer un compte</h2>
+          <p>Rejoignez RoadAlert pour des routes plus sûres.</p>
+        </div>
+
+        @form({ route: 'new_account.store', method: 'POST', class: 'signup-form' })
           @field.root({ name: 'fullName' })
-            @!field.label({ text: 'Full name' })
-            @!input.control()
+            @!field.label({ text: 'Nom complet' })
+            <div class="signup-input"><span>♙</span>@!input.control({ autocomplete: 'name', placeholder: 'Entrez votre nom complet' })</div>
             @!field.error()
           @end
-        </div>
 
-        <div>
           @field.root({ name: 'email' })
-            @!field.label({ text: 'Email' })
-            @!input.control({ type: 'email', autocomplete: 'email' })
+            @!field.label({ text: 'Adresse email' })
+            <div class="signup-input"><span>✉</span>@!input.control({ type: 'email', autocomplete: 'email', placeholder: 'Entrez votre email' })</div>
             @!field.error()
           @end
-        </div>
 
-        <div>
           @field.root({ name: 'password' })
-            @!field.label({ text: 'Password' })
-            @!input.control({ type: 'password', autocomplete: 'new-password' })
-            <small class="password-hint">10 à 30 caractères, avec une majuscule, une minuscule et un chiffre.</small>
+            @!field.label({ text: 'Mot de passe' })
+            <div class="signup-input"><span>♙</span>@!input.control({ type: 'password', autocomplete: 'new-password', placeholder: 'Créez un mot de passe' })</div>
+            <small class="signup-password-hint">10 à 30 caractères, avec une majuscule, une minuscule et un chiffre.</small>
             @!field.error()
           @end
-        </div>
 
-        <div>
           @field.root({ name: 'passwordConfirmation' })
-            @!field.label({ text: 'Confirm password' })
-            @!input.control({ type: 'password', autocomplete: 'new-password' })
+            @!field.label({ text: 'Confirmer le mot de passe' })
+            <div class="signup-input"><span>♙</span>@!input.control({ type: 'password', autocomplete: 'new-password', placeholder: 'Confirmez votre mot de passe' })</div>
             @!field.error()
           @end
-        </div>
 
-        <div>
-          @!button({ text: 'Sign up', type: 'submit' })
-        </div>
-      @end
+          <button class="signup-submit" type="submit">S'inscrire <span>→</span></button>
+        @end
+
+        <p class="signup-login">Vous avez déjà un compte ? <a href="{{ route('session.create') }}">Se connecter</a></p>
+      </div>
+
+      <p class="signup-data-security">♢ <span>Vos données sont sécurisées<br />et ne seront jamais partagées.</span></p>
     </div>
-  </div>
+  </section>
 @end
