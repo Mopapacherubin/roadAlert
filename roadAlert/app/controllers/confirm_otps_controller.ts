@@ -41,10 +41,6 @@ export default class ConfirmOtpsController {
     session.forget('pendingVerificationEmail')
     await auth.use('web').login(user)
     session.flash('success', 'Adresse e-mail vérifiée. Vous êtes maintenant connecté.')
-    if (user.role === 'agent' || user.role === 'admin') {
-      return response.redirect().toPath('/dashboard')
-    }
-
-    return response.redirect().toRoute('home')
+    return response.redirect().toPath('/dashboard')
   }
 }

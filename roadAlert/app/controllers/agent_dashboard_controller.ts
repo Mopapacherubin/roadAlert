@@ -10,12 +10,12 @@ export default class AgentDashboardController {
       return response.redirect().toRoute('session.create')
     }
 
-    if (user.role !== 'agent' && user.role !== 'admin') {
-      return response.redirect().toRoute('home')
-    }
-
     // Reports by status
-    const rows = await Report.query().select('status').count('* as count').groupBy('status')
+    const reportsByStatusQuery = Report.query().select('status').count('* as count').groupBy('status')
+    if (user.role === 'citoyen') {
+      reportsByStatusQuery.where('user_id', user.id)
+    }
+    const rows = await reportsByStatusQuery
     const reportsByStatus: Record<string, number> = {
       nouveau: 0,
       en_cours: 0,
@@ -30,7 +30,11 @@ export default class AgentDashboardController {
 
     // Recent reports (7 days)
     const sevenDaysAgo = DateTime.now().minus({ days: 7 }).toSQL()
-    const recentCount = await Report.query().where('created_at', '>=', sevenDaysAgo).count('* as total')
+    const recentReportsQuery = Report.query().where('created_at', '>=', sevenDaysAgo)
+    if (user.role === 'citoyen') {
+      recentReportsQuery.where('user_id', user.id)
+    }
+    const recentCount = await recentReportsQuery.count('* as total')
     const recentReports = Number(recentCount[0].$extras.total)
 
     // Average resolution time (hours)
