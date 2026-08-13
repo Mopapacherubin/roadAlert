@@ -4,8 +4,12 @@
 .login-page { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .login-page .signup-showcase { width:auto; padding:42px; clip-path:none; }
 .login-page .signup-showcase::before { background:linear-gradient(90deg,rgba(3,17,35,.42),rgba(3,17,35,.26)); }
-.login-page .signup-showcase__content { min-height:auto; margin-left:0; }
-.login-page .signup-showcase__intro,.login-page .signup-benefits,.login-page .signup-security,.login-page .signup-copyright { display:none; }
+.login-page .signup-showcase__content { min-height:calc(100vh - 84px); margin-left:0; }
+.login-page .signup-showcase__intro { display:block; margin-top:18vh; }
+.login-page .signup-benefits { display:grid; gap:22px; margin-top:46px; }
+.login-page .signup-benefit i { width:64px; height:64px; flex-basis:64px; font-size:29px; }
+.login-page .signup-security { display:flex; align-self:stretch; margin-top:auto; }
+.login-page .signup-copyright { display:block; align-self:auto; margin:24px 0 0; }
 .login-page .signup-panel { position:relative; justify-content:center; padding:50px clamp(28px,5.2vw,80px) 40px; }
 .login-page .signup-panel__top { position:absolute; z-index:2; top:81px; left:50%; transform:translateX(-50%); width:min(calc(100% - 56px),640px); margin:0; justify-content:flex-end; }
 .login-page .signup-back { display:none; }
