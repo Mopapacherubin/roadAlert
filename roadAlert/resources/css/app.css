@@ -36,6 +36,13 @@ a {
   text-decoration: none;
 }
 
+.password-hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--gray-7);
+  font-size: 0.8rem;
+}
+
 [x-cloak] {
   display: none;
 }

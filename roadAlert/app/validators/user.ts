@@ -13,12 +13,12 @@ export const signupValidator = vine.create({
   fullName: vine.string().nullable(),
   email: email().trim().unique({ table: 'users', column: 'email' }),
   password: password()
-    .minLength(12)
+    .minLength(10)
     .maxLength(30)
     .regex(/[A-Z]/)
     .regex(/[a-z]/)
-    .regex(/[0-9]/)
-    .confirmed(),
+    .regex(/[0-9]/),
+  passwordConfirmation: vine.string().sameAs('password'),
 })
 
 export const confirmOtpValidator = vine.create({
