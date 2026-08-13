@@ -23,8 +23,8 @@ router
     router.get('signup', [controllers.NewAccount, 'create'])
     router.post('signup', [controllers.NewAccount, 'store'])
 
-    router.get('confirmOtp', [controllers.NewAccount, 'create']).as('verifyOtp')
-    router.post('confirmOtp', [controllers.NewAccount, 'store']).as('confirmOtp')
+    router.get('confirm-otp', [controllers.ConfirmOtps, 'create']).as('verifyOtp')
+    router.post('confirm-otp', [controllers.ConfirmOtps, 'store']).as('confirmOtp')
 
     router.get('login', [controllers.Session, 'create'])
     router.post('login', [controllers.Session, 'store'])

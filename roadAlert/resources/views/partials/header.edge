@@ -22,27 +22,15 @@
         <div class="btns">
           @if(auth.user)
             @!avatar({ initials: auth.user.initials })
+            @if(auth.user.role === 'agent' || auth.user.role === 'admin')
+              <a href="/dashboard" class="btn btn-dashboard">Dashboard</a>
+            @end
             @form({ route: 'session.destroy', method: 'POST' })
               @!button({ text: 'Logout' })
             @end
           @else
-            <a href="{{ route('new_account.create') }}" class="btn btn-signup">
-                S'inscrire
-            </a>
-
-<<<<<<< HEAD
-        @if(auth.user)
-          @!avatar({ initials: auth.user.initials })
-          @if(auth.user.role === 'agent' || auth.user.role === 'admin')
-            <a href="/dashboard">Dashboard</a>
-          @end
-          @form({ route: 'session.destroy', method: 'POST' })
-            @!button({ text: 'Logout' })
-=======
-            <a href="{{ route('session.create') }}" class="btn btn-login">
-                Se connecter
-            </a>
->>>>>>> 4ffa2dccfced1b4be285e904e968f432aa637c0b
+            <a href="{{ route('new_account.create') }}" class="btn btn-signup">S'inscrire</a>
+            <a href="{{ route('session.create') }}" class="btn btn-login">Se connecter</a>
           @end
         </div>
       </nav>

@@ -24,6 +24,6 @@ export default class NewAccountController {
     session.put('pendingVerificationEmail', user.email)
     await new EmailService().sendOtp(user.email, otp)
 
-    return response.redirect().toPath('/confirm-otp')
+    return response.redirect().toRoute('verifyOtp')
   }
 }
