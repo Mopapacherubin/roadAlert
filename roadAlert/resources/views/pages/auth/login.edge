@@ -1,32 +1,50 @@
 @layout()
-  <div class="form-container">
-    <div>
-      <h1>Login</h1>
-      <p>Enter your email and password below to log in</p>
-    </div>
+  @push('mainClass') signup-main @end
 
-    <div>
-      @form({ route: 'session.store', method: 'POST' })
-        <div>
+  <section class="signup-page login-page">
+    <aside class="signup-showcase" aria-label="RoadAlert">
+      <div class="signup-showcase__content">
+        <a href="{{ route('home') }}" class="signup-brand" aria-label="RoadAlert, accueil"><span class="signup-brand__icon">⚠</span><strong>Road<span>Alert</span></strong></a>
+        <div class="signup-showcase__intro"><h1>Ensemble, rendons<br />nos routes plus sûres.</h1><p>Signalez les problèmes routiers autour de vous et contribuez à l'amélioration de nos infrastructures.</p></div>
+        <div class="signup-benefits">
+          <div class="signup-benefit"><i>⌖</i><p><strong>Signalez facilement</strong><span>Indiquez un problème routier en quelques clics avec photos et localisation.</span></p></div>
+          <div class="signup-benefit"><i>▥</i><p><strong>Suivez en temps réel</strong><span>Suivez l'état de vos signalements et restez informé des actions menées.</span></p></div>
+          <div class="signup-benefit"><i>♧</i><p><strong>Agissons ensemble</strong><span>Votre signalement peut faire la différence pour toute la communauté.</span></p></div>
+        </div>
+        <div class="signup-security"><i>♢</i><p><strong>Votre sécurité, notre priorité</strong><span>RoadAlert garantit la confidentialité de vos données et signalements.</span></p></div>
+        <small class="signup-copyright">© 2025 Road<span>Alert</span>. Tous droits réservés.</small>
+      </div>
+    </aside>
+
+    <div class="signup-panel">
+      <div class="signup-panel__top"><a href="{{ route('home') }}" class="signup-back">← <span>Retour à l'accueil</span></a><button class="signup-theme" type="button" aria-label="Changer le thème">☼ <span>◐</span></button></div>
+      <div class="signup-card login-card">
+        <div class="signup-card__heading"><div class="signup-lock">♙</div><h2>Connexion</h2><p>Connectez-vous à votre compte RoadAlert<br />pour continuer.</p></div>
+        @form({ route: 'session.store', method: 'POST', class: 'signup-form' })
           @field.root({ name: 'email' })
-            @!field.label({ text: 'Email' })
-            @!input.control({ type: 'email' })
+            @!field.label({ text: 'Adresse email' })
+            <div class="signup-input">
+              <span>✉</span>
+              @!input.control({ type: 'email', autocomplete: 'email', placeholder: 'Entrez votre email' })
+            </div>
             @!field.error()
           @end
-        </div>
-
-        <div>
           @field.root({ name: 'password' })
-            @!field.label({ text: 'Password' })
-            @!input.control({ type: 'password' })
+            @!field.label({ text: 'Mot de passe' })
+            <div class="signup-input">
+              <span>♙</span>
+              @!input.control({ type: 'password', autocomplete: 'current-password', placeholder: 'Entrez votre mot de passe' })
+            </div>
             @!field.error()
           @end
-        </div>
-
-        <div>
-          @!button({ text: 'Login', type: 'submit' })
-        </div>
-      @end
+          <a href="#" class="login-forgot">Mot de passe oublié ?</a>
+          <button class="signup-submit" type="submit">Se connecter <span>→</span></button>
+        @end
+        <div class="login-divider"><span>ou continuer avec</span></div>
+        <div class="login-socials"><button type="button"><b class="google-mark">G</b>Google</button><button type="button"><b class="facebook-mark">f</b>Facebook</button></div>
+        <p class="signup-login">Vous n'avez pas de compte ? <a href="{{ route('new_account.create') }}">S'inscrire</a></p>
+      </div>
+      <p class="signup-data-security">♢ <span>Vos données sont sécurisées<br />et ne seront jamais partagées.</span></p>
     </div>
-  </div>
+  </section>
 @end

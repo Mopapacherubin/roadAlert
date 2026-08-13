@@ -40,26 +40,38 @@
         @form({ route: 'new_account.store', method: 'POST', class: 'signup-form' })
           @field.root({ name: 'fullName' })
             @!field.label({ text: 'Nom complet' })
-            <div class="signup-input"><span>♙</span>@!input.control({ autocomplete: 'name', placeholder: 'Entrez votre nom complet' })</div>
+            <div class="signup-input">
+              <span>♙</span>
+              @!input.control({ autocomplete: 'name', placeholder: 'Entrez votre nom complet' })
+            </div>
             @!field.error()
           @end
 
           @field.root({ name: 'email' })
             @!field.label({ text: 'Adresse email' })
-            <div class="signup-input"><span>✉</span>@!input.control({ type: 'email', autocomplete: 'email', placeholder: 'Entrez votre email' })</div>
+            <div class="signup-input">
+              <span>✉</span>
+              @!input.control({ type: 'email', autocomplete: 'email', placeholder: 'Entrez votre email' })
+            </div>
             @!field.error()
           @end
 
           @field.root({ name: 'password' })
             @!field.label({ text: 'Mot de passe' })
-            <div class="signup-input"><span>♙</span>@!input.control({ type: 'password', autocomplete: 'new-password', placeholder: 'Créez un mot de passe' })</div>
+            <div class="signup-input">
+              <span>♙</span>
+              @!input.control({ type: 'password', autocomplete: 'new-password', placeholder: 'Créez un mot de passe' })
+            </div>
             <small class="signup-password-hint">10 à 30 caractères, avec une majuscule, une minuscule et un chiffre.</small>
             @!field.error()
           @end
 
           @field.root({ name: 'passwordConfirmation' })
             @!field.label({ text: 'Confirmer le mot de passe' })
-            <div class="signup-input"><span>♙</span>@!input.control({ type: 'password', autocomplete: 'new-password', placeholder: 'Confirmez votre mot de passe' })</div>
+            <div class="signup-input">
+              <span>♙</span>
+              @!input.control({ type: 'password', autocomplete: 'new-password', placeholder: 'Confirmez votre mot de passe' })
+            </div>
             @!field.error()
           @end
 
