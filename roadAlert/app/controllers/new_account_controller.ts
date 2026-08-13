@@ -11,11 +11,12 @@ export default class NewAccountController {
   }
 
   async store({ request, response, session }: HttpContext) {
-    const payload = await request.validateUsing(signupValidator)
+    const { passwordConfirmation: _passwordConfirmation, ...userPayload } =
+      await request.validateUsing(signupValidator)
     const otp = generateOtp()
     const otpExpiresAt = DateTime.now().plus({ minutes: 10 })
     const user = await User.create({
-      ...payload,
+      ...userPayload,
       isVerified: false,
       otp,
       otpExpiresAt,
