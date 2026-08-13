@@ -18,9 +18,7 @@ export const signupValidator = vine.create({
     .regex(/[A-Z]/)
     .regex(/[a-z]/)
     .regex(/[0-9]/)
-    .confirmed({
-      confirmationField: 'passwordConfirmation',
-    }),
+    .confirmed(),
 })
 
 export const confirmOtpValidator = vine.create({

@@ -1,110 +1,72 @@
 @layout()
+  @let(userName = auth.user.fullName || auth.user.email.split('@')[0])
 
   <div class="dashboard-page">
-    <div class="dashboard-header">
-      <h1>Tableau de bord</h1>
-      <p>Vue d'ensemble des signalements et actions rapides.</p>
+    <aside class="dashboard-sidebar">
+      <a href="/" class="dashboard-brand"><span class="brand-mark">⚠</span>Road<span>Alert</span></a>
+      <nav class="dashboard-menu" aria-label="Navigation du tableau de bord">
+        <a class="is-active" href="/dashboard">⌂ <span>Accueil</span></a>
+        <a href="/reports">♧ <span>Signaler un problème</span></a>
+        <a href="#recent-reports">▣ <span>Mes signalements</span></a>
+        <a href="#map">♧ <span>Carte</span></a>
+        <a href="#statistics">♜ <span>Statistiques</span></a>
+        <a href="#profile">♙ <span>Profil</span></a>
+        <a href="#settings">⚙ <span>Paramètres</span></a>
+      </nav>
+      <div class="dashboard-sidebar-bottom">
+        <a href="#support">? <span>Aide &amp; Support</span></a>
+        @form({ route: 'session.destroy', method: 'POST' })
+          <button class="dashboard-logout" type="submit">⇥ <span>Déconnexion</span></button>
+        @end
+        <div class="dashboard-community"><span>👩🏾</span><p><strong>Agissons ensemble<br>pour des routes meilleures !</strong><br><small>Chaque signalement compte.</small></p></div>
+      </div>
+    </aside>
+
+    <div class="dashboard-content">
+      <header class="dashboard-topbar">
+        <label class="dashboard-search"><span>⌕</span><input type="search" placeholder="Rechercher un lieu, une rue..." aria-label="Rechercher"></label>
+        <div class="dashboard-account"><button class="notification" aria-label="Notifications">♧<b>3</b></button><span class="dashboard-avatar">{{ auth.user.initials }}</span><strong>{{ userName }}</strong><span>⌄</span></div>
+      </header>
+
+      <main class="dashboard-main">
+        <section class="dashboard-intro">
+          <div><h1>Bonjour, {{ userName }} ! 👋</h1><p>Bienvenue sur votre espace. Signalez, suivez et contribuez à l'amélioration de nos routes.</p></div>
+          <div class="dashboard-summary" id="statistics">
+            <article class="summary-card orange"><i>▣</i><strong>{{ reports.length }}</strong><span>Signalements</span><a href="#recent-reports">Voir tous →</a></article>
+            <article class="summary-card yellow"><i>◷</i><strong>{{ reportsByStatus.nouveau }}</strong><span>En attente</span><a href="#recent-reports">Voir tous →</a></article>
+            <article class="summary-card blue"><i>◉</i><strong>{{ reportsByStatus.en_cours }}</strong><span>En cours</span><a href="#recent-reports">Voir tous →</a></article>
+            <article class="summary-card green"><i>✓</i><strong>{{ reportsByStatus.resolu }}</strong><span>Résolus</span><a href="#recent-reports">Voir tous →</a></article>
+          </div>
+        </section>
+
+        <section class="dashboard-grid">
+          <div class="dashboard-left">
+            <section class="new-report"><div class="new-report-icon">+</div><div><h2>Nouveau signalement</h2><p>Signalez un problème routier en quelques clics.</p><a href="/reports">Créer un signalement&nbsp; →</a></div></section>
+            <section class="recent-card" id="recent-reports"><header><h2>Mes derniers signalements</h2><a href="/reports">Voir tous mes signalements&nbsp; →</a></header>
+              <div class="report-list">
+                @each(report in reports.slice(0, 4))
+                  <article class="report-row" data-id="{{ report.id }}">
+                    @if(report.photos.length)
+                      <img src="{{ report.photos[0].filePath }}" alt="Photo du signalement {{ report.title }}">
+                    @else
+                      <div class="report-placeholder">⚠</div>
+                    @end
+                    <div class="report-details"><h3>#{{ report.id }} <span>{{ report.title }}</span></h3><p>⌖ {{ report.address || 'Adresse non renseignée' }}</p></div>
+                    <div class="report-state"><span class="status-pill status-{{ report.status }}">{{ report.status === 'nouveau' ? 'En attente' : report.status === 'en_cours' ? 'En cours' : report.status === 'resolu' ? 'Résolu' : 'Rejeté' }}</span><small>{{ report.createdAt?.toFormat('dd LLL yyyy') }}</small></div>
+                    <a href="/reports/{{ report.id }}" class="report-arrow" aria-label="Voir le signalement">›</a>
+                  </article>
+                @else
+                  <p class="empty-reports">Aucun signalement pour le moment.</p>
+                @end
+              </div>
+            </section>
+          </div>
+
+          <section class="map-card" id="map"><header><h2>Carte des signalements</h2><a href="/reports">Voir la carte complète&nbsp; →</a></header><div class="map-visual"><span class="map-label">Kinshasa</span><i class="pin pin-one">{{ reportsByStatus.nouveau }}</i><i class="pin pin-two">{{ reportsByStatus.en_cours }}</i><i class="pin pin-three">{{ reportsByStatus.resolu }}</i><b class="map-pin">●</b><b class="map-pin second">●</b></div><footer><span><i class="legend orange-dot"></i>En attente</span><span><i class="legend blue-dot"></i>En cours</span><span><i class="legend green-dot"></i>Résolu</span></footer></section>
+        </section>
+
+        <section class="security-banner"><span>♢</span><p><strong>Votre sécurité, notre priorité</strong><br>Merci de rester prudent et de ne pas vous mettre en danger lors de vos signalements.</p><a href="#support">En savoir plus</a></section>
+      </main>
     </div>
-
-    <div class="dashboard-cards">
-      <div class="card">
-        <h4>Nouveaux</h4>
-        <strong>{{ reportsByStatus.nouveau }}</strong>
-      </div>
-      <div class="card">
-        <h4>En cours</h4>
-        <strong>{{ reportsByStatus.en_cours }}</strong>
-      </div>
-      <div class="card">
-        <h4>Résolus</h4>
-        <strong>{{ reportsByStatus.resolu }}</strong>
-      </div>
-      <div class="card">
-        <h4>Rejetés</h4>
-        <strong>{{ reportsByStatus.rejete }}</strong>
-      </div>
-    </div>
-
-    <div class="dashboard-stats">
-      <div class="stat">
-        <span>Signalements (7j)</span>
-        <strong>{{ recentReports }}</strong>
-      </div>
-      <div class="stat">
-        <span>Temps de résolution moyen (h)</span>
-        <strong>{{ avgResolutionTime ?? '—' }}</strong>
-      </div>
-    </div>
-
-    <section class="reports-table">
-      <h2>Derniers signalements</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Titre</th>
-              <th>Statut</th>
-              <th>Créé</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @each(report in reports)
-              <tr data-id="{{ report.id }}">
-                <td>{{ report.id }}</td>
-                <td>{{ report.title }}</td>
-                <td class="status">{{ report.status }}</td>
-                <td>{{ report.createdAt }}</td>
-                <td>
-                  <a class="btn" href="/reports/{{ report.id }}">Voir</a>
-                  <select class="status-select">
-                    <option value="nouveau" {{ report.status === 'nouveau' ? 'selected' : '' }}>Nouveau</option>
-                    <option value="en_cours" {{ report.status === 'en_cours' ? 'selected' : '' }}>En cours</option>
-                    <option value="resolu" {{ report.status === 'resolu' ? 'selected' : '' }}>Résolu</option>
-                    <option value="rejete" {{ report.status === 'rejete' ? 'selected' : '' }}>Rejeté</option>
-                  </select>
-                  <button class="btn update-status">Mettre à jour</button>
-                </td>
-              </tr>
-            @end
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <script>
-      document.addEventListener('click', async (ev) => {
-        const btn = ev.target.closest('.update-status')
-        if (!btn) return
-
-        const row = btn.closest('tr')
-        const id = row.dataset.id
-        const select = row.querySelector('.status-select')
-        const status = select.value
-
-        try {
-          const res = await fetch(`/reports/${id}/status`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status }) ,
-            credentials: 'same-origin'
-          })
-
-          if (!res.ok) {
-            const data = await res.json().catch(() => ({}))
-            alert(data.message || 'Erreur lors de la mise à jour du statut')
-            return
-          }
-
-          const json = await res.json()
-          row.querySelector('.status').textContent = json.status
-        } catch (err) {
-          console.error(err)
-          alert('Erreur réseau')
-        }
-      })
-    </script>
   </div>
-
 @end
