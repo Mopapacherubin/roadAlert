@@ -4,14 +4,31 @@
   <section class="signup-page login-page">
     <aside class="signup-showcase" aria-label="RoadAlert">
       <div class="signup-showcase__content">
-        <a href="{{ route('home') }}" class="signup-brand" aria-label="RoadAlert, accueil"><span class="signup-brand__icon">⚠</span><strong>Road<span>Alert</span></strong></a>
+        <a href="{{ route('home') }}" class="signup-brand" aria-label="RoadAlert, accueil"><span class="signup-brand__icon">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert-icon lucide-triangle-alert"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        </span><strong>Road<span>Alert</span></strong></a>
         <div class="signup-showcase__intro"><h1>Ensemble, rendons<br />nos routes plus sûres.</h1><p>Signalez les problèmes routiers autour de vous et contribuez à l'amélioration de nos infrastructures.</p></div>
         <div class="signup-benefits">
-          <div class="signup-benefit"><i>⌖</i><p><strong>Signalez facilement</strong><span>Indiquez un problème routier en quelques clics avec photos et localisation.</span></p></div>
-          <div class="signup-benefit"><i>▥</i><p><strong>Suivez en temps réel</strong><span>Suivez l'état de vos signalements et restez informé des actions menées.</span></p></div>
-          <div class="signup-benefit"><i>♧</i><p><strong>Agissons ensemble</strong><span>Votre signalement peut faire la différence pour toute la communauté.</span></p></div>
+          <div class="signup-benefit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            <p><strong>Signalez facilement</strong><span>Indiquez un problème routier en quelques clics avec photos et localisation.</span></p></div>
+          <div class="signup-benefit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+            </svg>
+            <p><strong>Suivez en temps réel</strong><span>Suivez l'état de vos signalements et restez informé des actions menées.</span></p></div>
+          <div class="signup-benefit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+            </svg>
+            <p><strong>Agissons ensemble</strong><span>Votre signalement peut faire la différence pour toute la communauté.</span></p></div>
         </div>
-        <div class="signup-security"><i>♢</i><p><strong>Votre sécurité, notre priorité</strong><span>RoadAlert garantit la confidentialité de vos données et signalements.</span></p></div>
+        <div class="signup-security">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check-icon lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+          <p><strong>Votre sécurité, notre priorité</strong><span>RoadAlert garantit la confidentialité de vos données et signalements.</span></p></div>
         <small class="signup-copyright">© 2025 Road<span>Alert</span>. Tous droits réservés.</small>
       </div>
     </aside>
@@ -46,7 +63,9 @@
         <div class="login-socials"><button type="button"><b class="google-mark">G</b>Google</button><button type="button"><b class="facebook-mark">f</b>Facebook</button></div>
         <p class="signup-login">Vous n'avez pas de compte ? <a href="{{ route('new_account.create') }}">S'inscrire</a></p>
       </div>
-      <p class="signup-data-security">♢ <span>Vos données sont sécurisées<br />et ne seront jamais partagées.</span></p>
+      <p class="signup-data-security">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check-icon lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Vos données sont sécurisées<br />et ne seront jamais partagées.</span></p>
     </div>
   </section>
 @end
